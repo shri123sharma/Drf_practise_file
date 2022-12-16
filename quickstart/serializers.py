@@ -92,12 +92,12 @@ class BlogSerializer(serializers.Serializer):
         return Blog.objects.create(**validated_data)
     
     def update(self,instance, validated_data):
-        # import pdb;pdb.set_trace()
+        import pdb;pdb.set_trace()
         instance.name=validated_data.get('name',instance.name)
         instance.tagline=validated_data.get('tagline',instance.tagline)
         instance.save()
         return instance
-        # return super().update(instance, validated_data)     
+  
     
 class AuthorSeralizer(serializers.Serializer):
     name=serializers.CharField(required=False,allow_blank=True,max_length=100)
@@ -118,20 +118,43 @@ class AuthorSeralizer(serializers.Serializer):
         return data
     
 
-                
+class PublisherSeralizer(serializers.Serializer):
+    name=serializers.CharField(max_length=100,required=False,allow_blank=True)
+    publish_book=serializers.CharField(max_length=100,required=False,allow_blank=True)
+    publish_date=serializers.CharField(max_length=100,required=False,allow_blank=True)
+    comment_number=serializers.CharField(max_length=100,required=False,allow_blank=True)
+    rating=serializers.CharField(max_length=100,required=False,allow_blank=True)
     
+    def create(self, validated_data):
+        return Publisher.objects.create(**validated_data)
     
-    
-
-
-    
-    
-    
+    def update(self,instance,validated_data):
+        instance.name=validated_data.get('name',instance.name)
+        instance.publish_book=validated_data.get('publish_book',instance.publish_book)
+        instance.publish_date=validated_data.get('publish_date',instance.publish_date)
+        instance.comment_number=validated_data.get('comment_number',instance.comment_number)
+        instance.rating=validated_data.get('rating',instance.rating)
+        return instance
         
-
-
-
-
-
+class ContactFormSeralizer(serializers.Serializer):
+    name=serializers.CharField(max_length=100,allow_blank=False)
+    age=serializers.IntegerField()
+    email=serializers.EmailField(max_length=100,allow_blank=False)
+    phone=serializers.IntegerField()
+    
+    def create(self, validated_data):
+        return ContactForm.objects.create(**validated_data)
+    
+    def save(self):
+        name=self.validated_data.get['name']
+        age=self.validated_data.get['age']
+        email=self.validated_data.get['email']
+        phone=self.validated_data.get['phone']
+        
+        
+        
+        
+    
     
 
+    
