@@ -47,6 +47,25 @@ class Entry(models.Model):
     number_pingback=models.IntegerField()
     rating=models.IntegerField(default=5)
     
+    
+class Publisher(models.Model):
+    name=models.CharField(max_length=100,null=True,blank=True)
+    publish_book=models.CharField(max_length=100,null=True,blank=True)
+    publish_date=models.CharField(max_length=100,null=True,blank=True)
+    comment_number=models.CharField(max_length=100,null=True,blank=True)
+    rating=models.CharField(max_length=100,null=True,blank=True)
+    
+class ContactForm(models.Model):
+    name=models.CharField(max_length=100,null=True,blank=True)
+    age=models.IntegerField()
+    email=models.EmailField(max_length=100,help_text='only for email',default='@gmail.com')
+    phone=models.IntegerField()
+    
+   
+
+
+
+    
 
         
         
