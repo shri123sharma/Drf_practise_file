@@ -22,5 +22,5 @@ from django.urls import include,path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('quickstart.urls',namespace='my_app'))
+    path('',include('quickstart.urls'))
 ]
