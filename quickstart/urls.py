@@ -51,8 +51,13 @@ urlpatterns = [
     # path('exampleview/',views.ExampleView.as_view(),name='exampleview'),
     # path('demoview/',views.DemoView.as_view(),name='demoview'),
     # path('demoview1/<int:pk>/',views.DemoView_1.as_view(),name='demoview1'),
-    path('publisherview/',views.PublisherView.as_view(),name='publisherview'),
-    path('contactfrom/',views.ContactFormView.as_view(),name='contactfrom'),
+    # path('publisherview/',views.PublisherView.as_view(),name='publisherview'),
+    # path('contactfrom/',views.ContactFormView.as_view(),name='contactfrom'),
+    # path('collage/',views.CollageView.as_view(),name='collage'),
+    # path('departmentview/',views.DepartmentSeralizerView.as_view(),name='departmentview')
+    # path('collageserializer/',views.CollageSerializerView.as_view(),name='collageserializer'),
+    path('publisher/',views.publisher_view,name='publisher'),
+    path('albumview/',views.AlbumSerializerView.as_view(),name='albumview')
     
 ]
 

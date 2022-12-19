@@ -25,6 +25,7 @@ from rest_framework.routers import Route,DynamicRoute,SimpleRouter
 from rest_framework.parsers import *
 import io
 from rest_framework.parsers import JSONParser
+import json
 @csrf_exempt
 @api_view(['GET','POST'])
 def entryseralizer(request):
@@ -437,38 +438,101 @@ class ContactFormView(APIView):
         else:
             serializer.errors
             
-            
-            
-    
+class CollageView(APIView):
+    def get(self,request,*args,**kwargs):
+        clg=Collage.objects.all()
+        print(clg)
+        serializer=CollageSeralizer(clg,many=True)
+        print(serializer)
+        serializer=serializer.data
+        print(serializer)
         
-        
+        for data in serializer:
+            l1=[]
+            list=l1.append(data)    
+        json=JSONRenderer().render(serializer)
+        print(json)
+        return Response(json,status=status.HTTP_200_OK)
+    
+    def post(self,request,*args,**kwrags):
+        serializer_data=CollageSeralizer(data=request.data,many=True)
+        if serializer_data.is_valid(raise_exception=True):
+            if serializer_data.save():
+                return Response(serializer_data.data,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+              
+# class DepartmentSeralizerView(APIView):
+    
+#     def get(self,request,*args,**kwargs):
+#         dep=Department.objects.all()
+#         dep_1=DepartmentSeralizer(dep,many=True)
+#         return Response(dep_1.data,status=status.HTTP_200_OK)
+    
+#     def post(self,request,*args,**kwargs):
+#         kkk = request.data.copy()
+#         # k={}
+#         # k['floor']=request.data['floor']
+#         # k['fields'] =  request.data['fields']
+#         # import pdb;pdb.set_trace()
+#         dep_p=DepartmentSeralizer(data=request.data,many=True)
+#         if dep_p.is_valid():
+#             dep_p.save()
+#             return Response(dep_p.data,status=status.HTTP_200_OK)
+#         return Response(dep_p.errors,status=status.HTTP_400_BAD_REQUEST)
 
-        
+# class CollageSerializerView(APIView):
     
-        
-    
-      
-        
-    
-    
+#     authentication_classes = [authentication.TokenAuthentication, ]
+#     permission_classes = [permissions.IsAuthenticated, ]
+#     def get(self,request,*args,**kwargs):
+#         queryset=Collage.objects.all()
+#         ser_data=CollageSeralizer(queryset,many=True)
+#         ser_data_1=ser_data.data
+#         return Response(ser_data_1,status=status.HTTP_200_OK)
 
-           
 
+#     def post(self,request,*args,**kwargs):
+#         # import pdb;pdb.set_trace()
+#         ser_data_p=CollageSeralizer(data=request.data)
+#         if ser_data_p.is_valid():
+#             ser_data_p.save()
+#             return Response(ser_data_p.data,status=status.HTTP_200_OK)
+#         return Response(ser_data_p.data,status=status.HTTP_400_BAD_REQUEST)
     
-
-   
+@api_view(['GET','POST']) 
+@csrf_exempt
+def publisher_view(request,*args,**kwargs):
+    if request.method=='GET':
+        pub=Publisher.objects.all()
+        serializer=PublisherSeralizer_1(pub,many=True)
+        ser_1=serializer.data
+        return Response(ser_1,status=status.HTTP_200_OK)
     
-        
+    elif request.method=='POST': 
+        serializer=PublisherSeralizer_1(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.data,status=status.HTTP_400_BAD_REQUEST)   
+    else:
+        pass   
     
-
+class AlbumSerializerView(APIView):
     
+    def get(self,request,*args,**kwargs):
+        query=Album.objects.all()
+        ser=AlbumSeralizer_1(query)
+        print(repr(ser))
+        return Response(ser.data,status=status.HTTP_200_OK)
     
-
-    
-    
-    
-    
-    
-
-    
+    def post(self,request,*args,**kwargs):
+        # import pdb;pdb.set_trace()
+        ser=AlbumSeralizer_1(data=request.data)
+        if ser.is_valid():
+            ser.save()
+            print(ser)
+            return Response(ser.data,status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
     

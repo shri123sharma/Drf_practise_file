@@ -61,11 +61,36 @@ class ContactForm(models.Model):
     email=models.EmailField(max_length=100,help_text='only for email',default='@gmail.com')
     phone=models.IntegerField()
     
-   
-
-
-
     
+class Collage(models.Model):
+    name=models.CharField(max_length=100,null=True,blank=True)
+    type_collage=models.CharField(max_length=100,null=True,blank=True)
+    location=models.CharField(max_length=100,null=True,blank=True)
+    pin_code=models.IntegerField()
+    
+    def __str__(self):
+        return self.name
 
-        
-        
+class Department(models.Model):
+    collage_department=models.ForeignKey(Collage,on_delete=models.CASCADE,null=True,blank=True)
+    floor=models.IntegerField(null=False,blank=False)
+    fields=models.CharField(max_length=100,null=True,blank=True)
+    
+    def __str__(self):
+        return str(self.floor)
+    
+class Section(models.Model):
+    dep_section=models.ForeignKey(Department,null=True,blank=True,on_delete=models.CASCADE)
+    classes=models.CharField(max_length=100,null=True,blank=True)
+    
+    def __str__(self):
+        return str(self.dep_section)
+    
+class Album(models.Model):
+    
+    album_name=models.CharField(max_length=100,null=True,blank=True)
+    album_song=models.IntegerField()
+    publish_date=models.DateField(auto_now_add=True)
+    update_date=models.DateField()
+    
+    
