@@ -135,6 +135,7 @@ class HospitalSerializer_2(serializers.ModelSerializer):
         fields='__all__'
         
 class PatientSerializer_1(serializers.ModelSerializer):
+    # performaning actions
     patient=serializers.StringRelatedField(many=True)
     class Meta:
         model=Patient
@@ -142,6 +143,7 @@ class PatientSerializer_1(serializers.ModelSerializer):
         
 class PatientSerializer_2(serializers.ModelSerializer):
     patient=serializers.PrimaryKeyRelatedField(many=True,read_only=True)
+    
     class Meta:
         model=Patient
         fields='__all__'
